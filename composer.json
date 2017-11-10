@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Prologuetech\\Exee": "src/"
+      "Prologuetech\\Exee\\": "src/"
     }
   },
   "config": {
