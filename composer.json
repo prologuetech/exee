@@ -1,0 +1,36 @@
+{
+  "name": "prologuetech/exee",
+  "type": "library",
+  "description": "FedEx Ship Manager Transaction Client",
+  "keywords": [
+    "Prologue Technology",
+    "FedEx",
+    "Ship",
+    "Manager",
+    "Transaction"
+  ],
+  "homepage": "https://github.com/prolougetech/exee",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eric Percifield",
+      "email": "epercifield@prologuetechnology.com",
+      "homepage": "http://prologuetechnology.com/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "~7.0",
+    "clue/socket-raw": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Prolougetech\\Exee\\": "src"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "minimum-stability": "dev",
+    "prefer-stable": true
+  }
+}
