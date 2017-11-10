@@ -1,5 +1,5 @@
 <?php
-namespace Prologuetech\Exee;
+namespace Prologuetech;
 
 class Exee {
 
