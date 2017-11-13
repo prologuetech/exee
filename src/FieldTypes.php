@@ -56,16 +56,16 @@ class FieldTypes
 	/**
 	 * Openship flags, Y = on, N = off
 	 *
-	 * 1 Create shipment: YNNNNNNNN
-	 * 2 Route/Time-in-Transit: NYNNNNNNN
-	 * 3 Rate shipment: NNYNNNNNN
-	 * 4 Add a package: NNNYNNNNN
-	 * 5 Edit a package: NNNNYNNNN
-	 * 6 Edit the shipment: NNNNNYNNN
-	 * 7 Delete a package: NNNNNNYNN
-	 * 8 Delete the shipment: NNNNNNNYN
-	 * 9 Confirm the package NNNNNNNNY
-	 * 9 Confirm the shipment: NNNNNNNNY
+	 * 1 - Create shipment:         YNNNNNNNN
+	 * 2 - Route/Time-in-Transit:   NYNNNNNNN
+	 * 3 - Rate shipment:           NNYNNNNNN
+	 * 4 - Add a package:           NNNYNNNNN
+	 * 5 - Edit a package:          NNNNYNNNN
+	 * 6 - Edit the shipment:       NNNNNYNNN
+	 * 7 - Delete a package:        NNNNNNYNN
+	 * 8 - Delete the shipment:     NNNNNNNYN
+	 * 9 - Confirm the package      NNNNNNNNY
+	 * 9 - Confirm the shipment:    NNNNNNNNY
 	 *
 	 * See Page 78 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
@@ -81,6 +81,16 @@ class FieldTypes
 	 */
 	const OPENSHIP_INDEX = 542;
 	const THERMAL_PRINTER_ID = 537;
+
+	/**
+	 * 1 - (default) Domestic MPS Non-associated, FedEx Express C.O.D. MPS associated, FedEx Express International MPS associated.
+	 * 2 - Domestic U.S. MPS for FedEx Express and FedEx Ground services. Package association. Print-at-the-end.
+	 * 3 - Domestic U.S. MPS for FedEx Express and FedEx Ground services. Package association. Print-as-you-go.
+	 * 4 - Package non-associated and labels printed with each create/add piece trnsaction for domestic MPS. Print-as-you-go (PAYG-NA)
+	 *
+	 * See Page 84 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
+	 */
+	const PACKAGE_ASSOCIATION_PRINT_MODE = 2600;
 
 	/**
 	 * Maximum number of copies: 500
