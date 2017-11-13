@@ -195,9 +195,6 @@ class Client
 			$id = $this->transactionId;
 		}
 
-		// Remove our prefix
-		$id = str_replace('TRANS_', '', $id);
-
 		// Humane treatments
 		return ucwords(strtolower(str_replace('_', ' ', $id)));
 	}
