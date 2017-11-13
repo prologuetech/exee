@@ -6,7 +6,7 @@ use React\EventLoop\Factory;
 use React\Socket\ConnectionInterface;
 use React\Socket\Connector;
 
-class Client implements TransactionTypeInterface, FieldTypeInterface
+class Client
 {
 	const TRANS_PREFIX = '0,';
 	const TRANS_AFFIX = '99,""';
@@ -181,8 +181,8 @@ class Client implements TransactionTypeInterface, FieldTypeInterface
 	 */
 	public function getTransactionIdFromType($type)
 	{
-		// Reflect our class
-		$reflect = new \ReflectionClass(get_class($this));
+		// Reflect our transaction type class
+		$reflect = new \ReflectionClass(TransactionTypes::class);
 
 		// Array our constant list
 		$constants = $reflect->getConstants();
@@ -211,8 +211,8 @@ class Client implements TransactionTypeInterface, FieldTypeInterface
 	public function fields($data)
 	{
 		// Generate our transaction ID if the developer does not specify
-		if (!array_key_exists(static::FIELD_CUSTOMER_TRANSACTION_ID, $data)) {
-			$data[static::FIELD_CUSTOMER_TRANSACTION_ID] = $this->transactionId;
+		if (!array_key_exists(FieldTypes::CUSTOMER_TRANSACTION_ID, $data)) {
+			$data[FieldTypes::CUSTOMER_TRANSACTION_ID] = $this->transactionId;
 		}
 
 		// Rerder unless disabled
