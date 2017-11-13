@@ -6,21 +6,8 @@ use React\EventLoop\Factory;
 use React\Socket\ConnectionInterface;
 use React\Socket\Connector;
 
-class Client
+class Client implements TransactionTypeInterface, FieldTypeInterface
 {
-	/**
-	 * See Page 52 FedEx Ship Manager Server Developer Guide, 2017
-	 */
-	const FIELD_CUSTOMER_TRANSACTION_ID = 1;
-	const FIELD_RECIPIENT_COMPANY = 11;
-	const FIELD_RECIPIENT_ADDRESS_1 = 13;
-	const FIELD_PAY_TYPE = 23;
-	const FIELD_RECIPIENT_COUNTRY = 50;
-	const UNKNOWN_117 = 117;
-
-	const TRANS_SERVICE_AVAILABILITY = "019";
-	const TRANS_GLOBAL_SHIP_REQUEST = "020";
-
 	const TRANS_PREFIX = '0,';
 	const TRANS_AFFIX = '99,""';
 	const TRANS_SEPARATOR = ',';
@@ -204,7 +191,7 @@ class Client
 		$id = array_search($type, $constants, true);
 
 		// Use our default if no match was found
-		if(empty($id)) {
+		if (empty($id)) {
 			$id = $this->transactionId;
 		}
 
