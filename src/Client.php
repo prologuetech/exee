@@ -83,10 +83,16 @@ class Client
 	}
 
 	/**
-	 * Connect to our socket and perform transaction
+	 * Push our transaction through our socket connection
+	 *
+	 * @param bool $withValidation
 	 */
-	public function connect()
+	public function push($withValidation = true)
 	{
+		if ($withValidation) {
+			$this->validateModel();
+		}
+
 		// Make our connection
 		$this->socketConnector->connect($this->uri)->then(function (ConnectionInterface $connection) {
 			// When we receive data, output it to our page and end
@@ -200,17 +206,49 @@ class Client
 	}
 
 	/**
-	 * Set our fields based on an array of transaction strings
+	 * Reflects our constant name from it's type
 	 *
-	 * @param array $data
+	 * @param string $type
+	 * @return bool|string
+	 * @throws \Exception
+	 */
+	public static function reflectFields($type)
+	{
+		// Reflect our transaction type class
+		$reflect = new \ReflectionClass(FieldTypes::class);
+
+		// Array our constant list
+		$constants = $reflect->getConstants();
+
+		// Find our result
+		$id = array_search($type, $constants, true);
+
+		var_dump($id);
+
+		return $id;
+	}
+
+	/**
+	 * Convert a data model into a transaction string
+	 *
+	 * @param Model $data
+	 * @param bool $withValidation
 	 * @return $this
 	 */
-	public function fields($data)
+	public function with($model, $withValidation = true)
 	{
-		// Generate our transaction ID if the developer does not specify
-		if (!array_key_exists(FieldTypes::CUSTOMER_TRANSACTION_ID, $data)) {
-			$data[FieldTypes::CUSTOMER_TRANSACTION_ID] = $this->transactionId;
+		// Validate our model
+		if ($withValidation) {
+			$this->validateModel($model);
 		}
+
+		// Generate our transaction ID if the developer does not specify
+		if (!$model->getAttribute(FieldTypes::CUSTOMER_TRANSACTION_ID)) {
+			$model->setAttribute(FieldTypes::CUSTOMER_TRANSACTION_ID, $this->transactionId);
+		}
+
+		// Pull all attributes
+		$data = $model->getAttributes();
 
 		// Rerder unless disabled
 		if ($this->reorder) {
@@ -243,5 +281,26 @@ class Client
 		}
 
 		return;
+	}
+
+	/**
+	 * Call our model validate method
+	 *
+	 * @param Model $model
+	 * @throws \Exception
+	 */
+	public function validateModel($model)
+	{
+		if (!$model instanceof Model) {
+			throw new \Exception(__METHOD__ . ': Unknown model type.');
+		}
+
+		if ($model->validate($model->getAttributes())) {
+			return true;
+		}
+
+		$missingFieldsString = implode(', ', $model->getMissingFields());
+
+		throw new \Exception('Unable to validate ' . get_class($model) . ', missing required fields: ' . $missingFieldsString);
 	}
 }
