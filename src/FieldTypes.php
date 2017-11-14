@@ -17,11 +17,11 @@ class FieldTypes
 	const RECIPIENT_CITY = 15;
 	const RECIPIENT_STATE = 16;
 	const RECIPIENT_POSTAL_CODE = 17;
-	const RECIPIENT_PHONE_NUMBER = 17;
+	const RECIPIENT_PHONE_NUMBER = 18;
 
 	/**
 	 * 1 = Bill Sender
-	 * 2 = Bill  Recipient
+	 * 2 = Bill Recipient
 	 * 3 = Third-party billing
 	 */
 	const PAY_TYPE = 23;
