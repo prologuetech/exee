@@ -12,6 +12,13 @@ class Model
 	protected $attributes = [];
 
 	/**
+	 * Model responses
+	 *
+	 * @var array
+	 */
+	protected $responses = [];
+
+	/**
 	 * Missing fields from validation
 	 *
 	 * @var array
@@ -59,6 +66,20 @@ class Model
 		return $this;
 	}
 
+	/**
+	 * Fill response fields
+	 *
+	 * @param array $fields
+	 * @return $this
+	 */
+	public function fillResponses(array $fields)
+	{
+		// Add our attributes to our model
+		foreach ($fields as $key => $value) {
+			$this->setResponse($key, $value);
+		}
+		return $this;
+	}
 
 	/**
 	 * Validator
@@ -72,7 +93,11 @@ class Model
 			$data = $this->getAttributes();
 		}
 
-		if ($data == static::$requiredFields) {
+		$data = array_keys($data);
+
+		$diff = array_diff(static::$requiredFields, $data);
+
+		if (count($diff) === 0) {
 			return true;
 		}
 
@@ -91,6 +116,21 @@ class Model
 		// Return our missing fields
 		if (!empty($this->missingFields)) {
 			return $this->missingFields;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get response field
+	 *
+	 * @return null|array
+	 */
+	public function getResponse()
+	{
+		// Return our missing fields
+		if (!empty($this->responses)) {
+			return $this->responses;
 		}
 
 		return null;
@@ -126,6 +166,16 @@ class Model
 	}
 
 	/**
+	 * Get all attributes
+	 *
+	 * @return array
+	 */
+	public function getResponses()
+	{
+		return $this->responses;
+	}
+
+	/**
 	 * Set a given attribute on the model.
 	 *
 	 * @param string $key
@@ -148,6 +198,19 @@ class Model
 	public function setMissingField($key, $value)
 	{
 		$this->missingFields[$value] = Client::reflectFields($value);
+		return $this;
+	}
+
+	/**
+	 * Set a given attribute on the model.
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 * @return $this
+	 */
+	public function setResponse($key, $value)
+	{
+		$this->responses[$key] = $value;
 		return $this;
 	}
 
