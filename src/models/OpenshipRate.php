@@ -14,7 +14,6 @@ class OpenshipRate extends Model
 	 */
 	public static $requiredFields = [
 		FieldTypes::OPENSHIP_FLAGS,
-		FieldTypes::OPENSHIP_INDEX,
 		FieldTypes::RATE_FLAG,
 		FieldTypes::NO_SHIPTIME_RATES,
 		FieldTypes::RATE_QUOTE_TYPE,
