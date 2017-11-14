@@ -33,7 +33,7 @@ class Openship
 	 * @param array $toggles
 	 * @return string
 	 */
-	public static function flags($toggles)
+	public static function flags($toggles = null)
 	{
 		$flags = [
 			1 => 'N',
@@ -46,6 +46,11 @@ class Openship
 			8 => 'N',
 			9 => 'N',
 		];
+
+		// Allow developers to request the default template
+		if (empty($toggles)) {
+			return $flags;
+		}
 
 		// Loop our flags
 		foreach ($toggles as $position) {
