@@ -62,6 +62,20 @@ class Client
 	public $reorder = true;
 
 	/**
+	 * Current data model for our client
+	 *
+	 * @var Model|null
+	 */
+	public $model;
+
+	/**
+	 * Holds an array of our decoded transaction string
+	 *
+	 * @var array
+	 */
+	public $decodedTransaction = [];
+
+	/**
 	 * Client constructor.
 	 *
 	 * @param null|string $uri
@@ -84,20 +98,22 @@ class Client
 
 	/**
 	 * Push our transaction through our socket connection
-	 *
-	 * @param bool $withValidation
 	 */
-	public function push($withValidation = true)
+	public function push()
 	{
-		if ($withValidation) {
-			$this->validateModel();
-		}
-
+//		static::decode('0,"120"1,"Global Ship Request"10,"108697687"30,"XX ZSVA "33,"A1"34,"2459"35,"15"36,"1950"37,"524"60,"1"112,""194,"TUE"195,"STL"198,"ZSVA "409,"14Nov17"431,"N"498,"111706825"1084,"CMIA "1086,""1087,""1090,"USD"1092,"2"1125,"0"1136,"XX"1393,"15"1596,"0"1598,"524"2399,"0"4565,"509"99,""�');
+//		die();
 		// Make our connection
 		$this->socketConnector->connect($this->uri)->then(function (ConnectionInterface $connection) {
 			// When we receive data, output it to our page and end
 			$connection->on('data', function ($data) use ($connection) {
-				echo $data;
+				// If we have a model, pass back decoded data
+				if ($this->model instanceof Model) {
+					$this->model->fillResponses(static::decode($data));
+					echo $data;
+				} else { // Otherwise raw dump our output
+					echo $data;
+				}
 				$connection->close();
 			});
 
@@ -179,6 +195,16 @@ class Client
 	}
 
 	/**
+	 * Return our fully qualified transaction string
+	 *
+	 * @return string
+	 */
+	public function getTransactionString()
+	{
+		return $this->prepare($this->transactionString);
+	}
+
+	/**
 	 * Reflects our constant name from it's type
 	 *
 	 * @param string $type
@@ -221,11 +247,26 @@ class Client
 		$constants = $reflect->getConstants();
 
 		// Find our result
-		$id = array_search($type, $constants, true);
+		return array_search($type, $constants);
+	}
 
-		var_dump($id);
+	public function decode($string) {
+		// Strip our prefix
+		$string = str_replace(static::TRANS_PREFIX, '', $string);
 
-		return $id;
+		// Strip our affix
+		$string = str_replace(static::TRANS_AFFIX, '', $string);
+
+		// Our transaction type is special, pull it out
+		$transactionType = substr($string, 0, 5);
+
+		$columns = preg_split('/"([0-9]+),? ?"/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+		foreach($columns as $value) {
+			$this->decodedTransaction[static::reflectFields($value)] = $value;
+		}
+
+		return $this->decodedTransaction;
 	}
 
 	/**
@@ -254,6 +295,9 @@ class Client
 		if ($this->reorder) {
 			ksort($data);
 		}
+
+		// Store our model inside our client
+		$this->model = $model;
 
 		// Add our data to our transaction string
 		$this->addTransactionFields($data);
