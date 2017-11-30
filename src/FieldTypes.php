@@ -9,11 +9,17 @@ namespace Prologuetech\Exee;
  */
 class FieldTypes
 {
+	const TRANSACTION_CODE = 0;
+
 	const CUSTOMER_TRANSACTION_ID = 1;
+	const TRANSACTION_STATUS = 2;
+	const ERROR_MESSAGE = 3;
 	const DECLARED_OR_CARRIAGE_VALUE = 9;
 	const SENDER_FEDEX_EXPRESS_ACCOUNT_NUMBER = 10;
 	const RECIPIENT_COMPANY = 11;
+	const RECIPIENT_CONTACT_NAME = 12;
 	const RECIPIENT_ADDRESS_1 = 13;
+	const RECIPIENT_ADDRESS_2 = 14;
 	const RECIPIENT_CITY = 15;
 	const RECIPIENT_STATE = 16;
 	const RECIPIENT_POSTAL_CODE = 17;
@@ -33,7 +39,17 @@ class FieldTypes
 	const PACKAGE_HEIGHT = 57;
 	const PACKAGE_WIDTH = 58;
 	const PACKAGE_LENGTH = 59;
-	const UNKNOWN_117 = 117;
+	const SENDER_COUNTRY_CODE = 117;
+	const BASE_RATE_AMOUNT = 34;
+	const TOTAL_SURCHARGE_AMOUNT = 35;
+	const TOTAL_DISCOUNT_AMOUNT = 36;
+	const NET_CHARGE_AMOUNT = 37;
+	const BILL_WEIGHT = 60;
+	const DESCRIPTION_OF_CONTENTS = 79;
+	const COUNTRY_OF_MANUFACTURER = 80;
+	const TOTAL_WEIGHT = 112;
+	const PACKAGE_TOTAL = 116;
+	const PRINTER_FORMAT_STRING = 188;
 
 	/**
 	 * 01 - Customer Packaging
@@ -76,6 +92,8 @@ class FieldTypes
 	 */
 	const LABEL_FORMAT_TYPE = 187;
 	const DANGEROUS_GOODS_OR_HAZMAT_FLAG = 331;
+	const DIM_WEIGHT_USED_FLAG = 431;
+	const RESIDENTIAL_DELIVERY_FLAG = 440;
 	const METER_NUMBER = 498;
 
 	/**
@@ -105,7 +123,15 @@ class FieldTypes
 	 * Package level add and shipment level route/time in transit: NYNYNNNNN
 	 */
 	const OPENSHIP_INDEX = 542;
+	const COD_COLLECT_PLUS_FREIGHT_CHARGE = 543;
 	const THERMAL_PRINTER_ID = 537;
+
+	const TRACKING_ID_TYPE = 671;
+	const RATE_SCALE = 1089;
+	const RATE_CURRENCY_TYPE = 1090;
+	const RATE_ZONE = 1092;
+	const RATE_RETURN_CODE = 1125;
+
 
 	/**
 	 * 1 - Rate Quote
@@ -118,6 +144,9 @@ class FieldTypes
 	 * See Page 89 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
 	const SERVICE_TYPE = 1274;
+	const FUEL_SURCHARGE_AMOUNT = 1393;
+	const TOTAL_CUSTOMER_CHARGE = 1598;
+	const RETURNS_SATURDAY_DELIVERY_ALLOWED = 1690;
 
 	/**
 	 * See Page 101 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
@@ -125,11 +154,19 @@ class FieldTypes
 	const PACKAGE_OR_SHIPMENT_WEIGHT = 1670;
 	const DRY_ICE_WEIGHT = 1684;
 
+	const CARTAGE_AGENT_DELIVERY_FLAG = 1942;
+	const USPS_DELIVERY_FLAG = 1943;
+	const ALTERNATE_DAY_SERVICE_DELIVERY_FLAG = 1944;
+
 	/**
 	 * Y - Yes (No rates returned)
 	 * N - No (Rates will be returned)
 	 */
 	const NO_SHIPTIME_RATES = 2028;
+
+	const CUSTOMIZED_GROUND_TRANSIT_TIME = 2703;
+
+
 
 	/**
 	 * 1 - (default) Domestic MPS Non-associated, FedEx Express C.O.D. MPS associated, FedEx Express International MPS associated.
@@ -140,10 +177,16 @@ class FieldTypes
 	 * See Page 84 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
 	const PACKAGE_ASSOCIATION_PRINT_MODE = 2600;
+	const AHS_SURCHARGE = 3013;
 	const ECOD_FLAG = 3014;
 	const NONSTANDARD_CONTAINER_FLAG = 3018;
 	const GND_PACKAGE_LEVEL_PO_NUMBER = 3056;
 	const PACKAGE_INVOICE_NUMBER = 3057;
+	const GROUND_TIME_IN_TRANSIT = 3058;
+	const GROUND_UCC_EAN_BARCODE = 3063;
+	const GROUND_SERVICE_CODE = 3073;
+	const MINIMUM_PACKAGE_CHARGE = 4565;
+	const AHS_TYPE = 4912;
 
 	/**
 	 * 1 - Discount Rates only (default)

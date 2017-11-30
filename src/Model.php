@@ -67,6 +67,13 @@ class Model
 	}
 
 	/**
+	 * @param $responses
+	 */
+	public function setResponses($responses){
+		$this->responses = $responses;
+	}
+
+	/**
 	 * Fill response fields
 	 *
 	 * @param array $fields

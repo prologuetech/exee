@@ -84,7 +84,8 @@ class Client
 	public function __construct($uri = null, $transactionId = null)
 	{
 		// Default our URI to localhost
-		$this->uri = $uri ?? 'localhost:80';
+
+		$this->uri = ($uri) ? $uri : 'localhost:80';
 
 		// Create react event loop
 		$this->eventLoop = Factory::create();
@@ -93,7 +94,7 @@ class Client
 		$this->socketConnector = new Connector($this->eventLoop);
 
 		// TODO: generate transaction ID on the fly for every new transaction call
-		$this->transactionId = $transactionId ?? 'General Transaction';
+		$this->transactionId = ($transactionId) ? $transactionId : 'General Transaction';
 	}
 
 	/**
@@ -101,29 +102,51 @@ class Client
 	 */
 	public function push()
 	{
-//		static::decode('0,"120"1,"Global Ship Request"10,"108697687"30,"XX ZSVA "33,"A1"34,"2459"35,"15"36,"1950"37,"524"60,"1"112,""194,"TUE"195,"STL"198,"ZSVA "409,"14Nov17"431,"N"498,"111706825"1084,"CMIA "1086,""1087,""1090,"USD"1092,"2"1125,"0"1136,"XX"1393,"15"1596,"0"1598,"524"2399,"0"4565,"509"99,""�');
-//		die();
 		// Make our connection
-		$this->socketConnector->connect($this->uri)->then(function (ConnectionInterface $connection) {
+		$totalBuffer = '';
+		$this->socketConnector->connect($this->uri)->then(function (ConnectionInterface $connection) use (&$totalBuffer) {
 			// When we receive data, output it to our page and end
-			$connection->on('data', function ($data) use ($connection) {
+
+			$totalBuffer = '';
+			$connection->on('data', function ($data) use (&$connection, &$totalBuffer) {
 				// If we have a model, pass back decoded data
-				if ($this->model instanceof Model) {
-					$this->model->fillResponses(static::decode($data));
-					echo $data;
-				} else { // Otherwise raw dump our output
-					echo $data;
+
+				$totalBuffer .= $data;
+
+				//Looking for the termination sequence, if we have it we know we have received the entire response from Fedex Ship Manager Server
+				if(strstr($totalBuffer, '"99,"')){
+					if ($this->model instanceof Model) {
+						preg_match_all('/([0-9-]+,"[^"]+)+/', $totalBuffer, $results);
+
+						$finalAssoc = array();
+
+						foreach ($results[0] AS $fieldString) {
+							$explodedComma = explode(",", $fieldString);
+							$fieldNumber = $explodedComma[0];
+							$reflected = static::reflectFields($fieldNumber);
+							$key = (!empty($reflected)) ? $reflected : $fieldNumber;
+							$finalAssoc[$key] = substr($fieldString, strpos($fieldString, ",") + 2);
+						}
+
+						$this->model->setResponses($finalAssoc);
+					}
+
+					//Since we know this is the last chunk, close the connection
+					$connection->close();
+
 				}
-				$connection->close();
+
 			});
+
+
+
 
 			// Write our transaction to our URI
 			$connection->write($this->prepare($this->transactionString));
-
-			// Pipe the response back out
+//			// Pipe the response back out
 			$connection->pipe('');
 
-			// Cleanup
+			//Just in case it wasn't already closed, close it.
 			$connection->close();
 		});
 
@@ -260,7 +283,8 @@ class Client
 		// Our transaction type is special, pull it out
 		$transactionType = substr($string, 0, 5);
 
-		$columns = preg_split('/"([0-9]+),? ?"/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$columns = preg_split('/"([0-9]+),? (?)"/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+
 
 		foreach($columns as $value) {
 			$this->decodedTransaction[static::reflectFields($value)] = $value;
