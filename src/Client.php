@@ -264,7 +264,7 @@ class Client
 	public static function reflectFields($type)
 	{
 		// Reflect our transaction type class
-		$reflect = new \ReflectionClass("Prologuetech\Exee\FieldTypes";
+		$reflect = new \ReflectionClass("Prologuetech\Exee\FieldTypes");
 
 		// Array our constant list
 		$constants = $reflect->getConstants();
