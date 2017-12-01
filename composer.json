@@ -17,6 +17,12 @@
       "email": "epercifield@prologuetechnology.com",
       "homepage": "http://prologuetechnology.com/",
       "role": "Developer"
+    },
+    {
+      "name": "Kevin Korb",
+      "email": "kevin@prologuetechnology.com",
+      "homepage": "http://prologuetechnology.com/",
+      "role": "Developer"
     }
   ],
   "require": {
