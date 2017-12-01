@@ -237,7 +237,7 @@ class Client
 	public function getTransactionIdFromType($type)
 	{
 		// Reflect our transaction type class
-		$reflect = new \ReflectionClass(TransactionTypes::class);
+		$reflect = new \ReflectionClass("Prologuetech\Exee\TransactionTypes");
 
 		// Array our constant list
 		$constants = $reflect->getConstants();
@@ -264,7 +264,7 @@ class Client
 	public static function reflectFields($type)
 	{
 		// Reflect our transaction type class
-		$reflect = new \ReflectionClass(FieldTypes::class);
+		$reflect = new \ReflectionClass("Prologuetech\Exee\FieldTypes";
 
 		// Array our constant list
 		$constants = $reflect->getConstants();
