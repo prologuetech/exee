@@ -32,6 +32,7 @@ class FieldTypes
 	 */
 	const PAY_TYPE = 23;
 	const REFERENCE_INFORMATION = 25;
+	const DECLARED_VALUE = 26;
 	const COD_FLAG = 27;
 	const TRACKING_NUMBER = 29;
 	const RECIPIENT_COUNTRY = 50;
@@ -39,6 +40,7 @@ class FieldTypes
 	const PACKAGE_HEIGHT = 57;
 	const PACKAGE_WIDTH = 58;
 	const PACKAGE_LENGTH = 59;
+	const CARRIAGE_VALUE = 69;
 	const SENDER_COUNTRY_CODE = 117;
 	const BASE_RATE_AMOUNT = 34;
 	const TOTAL_SURCHARGE_AMOUNT = 35;
