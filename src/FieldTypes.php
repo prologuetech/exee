@@ -25,6 +25,8 @@ class FieldTypes
 	const RECIPIENT_POSTAL_CODE = 17;
 	const RECIPIENT_PHONE_NUMBER = 18;
 
+	const PAYOR_ACCOUNT_NUMBER = 20;
+
 	/**
 	 * 1 = Bill Sender
 	 * 2 = Bill Recipient
