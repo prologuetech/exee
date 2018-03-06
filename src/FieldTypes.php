@@ -49,10 +49,14 @@ class FieldTypes
 	const TOTAL_DISCOUNT_AMOUNT = 36;
 	const NET_CHARGE_AMOUNT = 37;
 	const BILL_WEIGHT = 60;
+	const WEIGHT = 77;
 	const DESCRIPTION_OF_CONTENTS = 79;
 	const COUNTRY_OF_MANUFACTURER = 80;
+	const HARMONIZED_CODE = 81;
+	const UNIT_QUANTITY = 82;
 	const TOTAL_WEIGHT = 112;
 	const PACKAGE_TOTAL = 116;
+	const CI_MARKS_AND_NUMBERS = 120;
 	const PRINTER_FORMAT_STRING = 188;
 
 	/**
@@ -96,6 +100,8 @@ class FieldTypes
 	 */
 	const LABEL_FORMAT_TYPE = 187;
 	const DANGEROUS_GOODS_OR_HAZMAT_FLAG = 331;
+	const UNIT_OF_MEASURE = 414;
+	const CI_COMMENT = 418;
 	const DIM_WEIGHT_USED_FLAG = 431;
 	const RESIDENTIAL_DELIVERY_FLAG = 440;
 	const METER_NUMBER = 498;
@@ -116,6 +122,8 @@ class FieldTypes
 	 *
 	 * See Page 78 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
+	const THERMAL_PRINTER_ID = 537;
+
 	const OPENSHIP_FLAGS = 541;
 
 	/**
@@ -128,9 +136,10 @@ class FieldTypes
 	 */
 	const OPENSHIP_INDEX = 542;
 	const COD_COLLECT_PLUS_FREIGHT_CHARGE = 543;
-	const THERMAL_PRINTER_ID = 537;
+
 
 	const TRACKING_ID_TYPE = 671;
+	const UNIT_VALUE = 1030;
 	const RATE_SCALE = 1089;
 	const RATE_CURRENCY_TYPE = 1090;
 	const RATE_ZONE = 1092;
@@ -148,6 +157,7 @@ class FieldTypes
 	 * See Page 89 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
 	const SERVICE_TYPE = 1274;
+	const THERMAL_LABEL_PRINT_FLAG = 1282;
 	const FUEL_SURCHARGE_AMOUNT = 1393;
 	const TOTAL_CUSTOMER_CHARGE = 1598;
 	const RETURNS_SATURDAY_DELIVERY_ALLOWED = 1690;
