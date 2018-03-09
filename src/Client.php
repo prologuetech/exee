@@ -116,17 +116,51 @@ class Client
 				//Looking for the termination sequence, if we have it we know we have received the entire response from Fedex Ship Manager Server
 				if(strstr($totalBuffer, '"99,"')){
 					if ($this->model instanceof Model) {
+						\DebugLog::addLog("Openship-Response", $totalBuffer);
 						preg_match_all('/([0-9-]+,"[^"]+)+/', $totalBuffer, $results);
 
 						$finalAssoc = array();
 
+						//Normalize fields into a sane array
 						foreach ($results[0] AS $fieldString) {
 							$explodedComma = explode(",", $fieldString);
 							$fieldNumber = $explodedComma[0];
 							$reflected = static::reflectFields($fieldNumber);
+							$reflected = null;
 							$key = (!empty($reflected)) ? $reflected : $fieldNumber;
 							$finalAssoc[$key] = substr($fieldString, strpos($fieldString, ",") + 2);
 						}
+
+						//Modify keys that represent multiple items into an array
+						foreach($finalAssoc AS $key => $val){
+							$explodedDash = explode('-', $key);
+							$reflected = static::reflectFields($explodedDash[0]);
+
+							$reflected = !empty($reflected) ? $reflected : $explodedDash[0];
+
+							if(count($explodedDash) == 2){
+								if($explodedDash[1] == 1){
+									$previousValue = $finalAssoc[$explodedDash[0]];
+									unset($finalAssoc[$explodedDash[0]]);
+									$finalAssoc[$reflected][0] = $previousValue;
+								}
+								$finalAssoc[$reflected][$explodedDash[1]] = $val;
+								unset($finalAssoc[$key]);
+							}
+						}
+
+						//Reflect The Reggies
+						foreach($finalAssoc AS $key => $val){
+
+							if(is_array($val)){
+								continue;
+							}
+							unset($finalAssoc[$key]);
+							$reflected = static::reflectFields($key);
+							$reflected = !empty($reflected) ? $reflected : $key;
+							$finalAssoc[$reflected] = $val;
+						}
+
 
 						$this->model->setResponses($finalAssoc);
 					}
@@ -142,7 +176,9 @@ class Client
 
 
 			// Write our transaction to our URI
-			$connection->write($this->prepare($this->transactionString));
+			$string = $this->prepare($this->transactionString);
+			\DebugLog::addLog("openship-request", $string);
+			$connection->write($string);
 //			// Pipe the response back out
 			$connection->pipe('');
 

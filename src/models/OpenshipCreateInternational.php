@@ -26,7 +26,7 @@ class OpenshipCreateInternational extends Model
 		FieldTypes::RECIPIENT_STATE,
 		FieldTypes::RECIPIENT_POSTAL_CODE,
 		FieldTypes::RECIPIENT_PHONE_NUMBER,
-		FieldTypes::PACKAGE_OR_SHIPMENT_WEIGHT,
+//		FieldTypes::PACKAGE_OR_SHIPMENT_WEIGHT,
 		FieldTypes::PAY_TYPE,
 		FieldTypes::OPENSHIP_INDEX,
 		FieldTypes::SERVICE_TYPE,

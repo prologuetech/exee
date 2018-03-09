@@ -33,6 +33,7 @@ class FieldTypes
 	 * 3 = Third-party billing
 	 */
 	const PAY_TYPE = 23;
+	const SHIP_DATE = 24;
 	const REFERENCE_INFORMATION = 25;
 	const DECLARED_VALUE = 26;
 	const COD_FLAG = 27;
@@ -105,7 +106,7 @@ class FieldTypes
 	const DIM_WEIGHT_USED_FLAG = 431;
 	const RESIDENTIAL_DELIVERY_FLAG = 440;
 	const METER_NUMBER = 498;
-
+	const FORM_ID = 526;
 	/**
 	 * Openship flags, Y = on, N = off
 	 *
@@ -137,6 +138,7 @@ class FieldTypes
 	const OPENSHIP_INDEX = 542;
 	const COD_COLLECT_PLUS_FREIGHT_CHARGE = 543;
 
+	const TRACKING_NUM_INTL = 656;
 
 	const TRACKING_ID_TYPE = 671;
 	const UNIT_VALUE = 1030;
@@ -156,6 +158,7 @@ class FieldTypes
 	/**
 	 * See Page 89 FedEx Ship Manager Server v17.0.1 Developer Guide, 2017
 	 */
+	const PACKAGE_TYPE = 1273;
 	const SERVICE_TYPE = 1274;
 	const THERMAL_LABEL_PRINT_FLAG = 1282;
 	const FUEL_SURCHARGE_AMOUNT = 1393;
@@ -171,6 +174,7 @@ class FieldTypes
 	const CARTAGE_AGENT_DELIVERY_FLAG = 1942;
 	const USPS_DELIVERY_FLAG = 1943;
 	const ALTERNATE_DAY_SERVICE_DELIVERY_FLAG = 1944;
+	const ADMISSIBILITY_PACKAGE_TYPE = 1958;
 
 	/**
 	 * Y - Yes (No rates returned)
