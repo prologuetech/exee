@@ -15,6 +15,5 @@ class OpenshipConfirmShipment extends Model
 	public static $requiredFields = [
 		FieldTypes::OPENSHIP_FLAGS,
 		FieldTypes::OPENSHIP_INDEX,
-		FieldTypes::SERVICE_TYPE,
 	];
 }
