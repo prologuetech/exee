@@ -135,16 +135,27 @@ class Client
 						foreach($finalAssoc AS $key => $val){
 							$explodedDash = explode('-', $key);
 							$reflected = static::reflectFields($explodedDash[0]);
-
 							$reflected = !empty($reflected) ? $reflected : $explodedDash[0];
 
+							$dashOnePresent = false; // some shipments have dropped the -1, this will detect if others do still use it.
 							if(count($explodedDash) == 2){
 								if($explodedDash[1] == 1){
+									$dashOnePresent = true;
 									$previousValue = $finalAssoc[$explodedDash[0]];
 									unset($finalAssoc[$explodedDash[0]]);
 									$finalAssoc[$reflected][0] = $previousValue;
 								}
-								$finalAssoc[$reflected][$explodedDash[1]] = $val;
+
+								$cnt = ((int) $explodedDash[1] - 1);
+
+								if ($cnt == 1 && !$dashOnePresent) { // first time, let's set the field up
+									$previousValue = $finalAssoc[$explodedDash[0]];
+									unset($finalAssoc[$explodedDash[0]]);
+									$finalAssoc[$reflected][0] = $previousValue;
+								}
+
+								// $assoc["TRANSACTION_CODE"][2] = code
+								$finalAssoc[$reflected][$cnt] = $val;
 								unset($finalAssoc[$key]);
 							}
 						}
