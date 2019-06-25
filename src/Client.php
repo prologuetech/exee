@@ -135,32 +135,32 @@ class Client
 						foreach($finalAssoc AS $key => $val){
 							$explodedDash = explode('-', $key);
 							$reflected = static::reflectFields($explodedDash[0]);
-
 							$reflected = !empty($reflected) ? $reflected : $explodedDash[0];
 
-							if(count($explodedDash) == 2){
-								if($explodedDash[1] == 1){
-									$previousValue = $finalAssoc[$explodedDash[0]];
-									unset($finalAssoc[$explodedDash[0]]);
+							// Items with multiple values usually come thru with Val-1, Val-2 keys
+							// However, with transaction IDs now, the *-1 is dropped, and only a *-2 appears if more
+							// than one transaction ID appears. So we need to still handle *-1 as a string, and then
+							// if a *-2 appears, convert previous values to an array and drop the rest as an array.
+
+							if(count($explodedDash) == 2) {
+								if((int) $explodedDash[1] > 1) {
+									// usually stored as a string, but if we hit here, we need to store as an array.
+									// so grab the original string, and re-store it as the first index of an array.ß
+									$previousValue = is_array($finalAssoc[$reflected]) ? $finalAssoc[$reflected][0] : $finalAssoc[$reflected];
+									if (!is_array($finalAssoc[$reflected])) {
+										$finalAssoc[$reflected] = [];
+									}
 									$finalAssoc[$reflected][0] = $previousValue;
 								}
-								$finalAssoc[$reflected][$explodedDash[1]] = $val;
-								unset($finalAssoc[$key]);
-							}
-						}
 
-						//Reflect The Reggies
-						foreach($finalAssoc AS $key => $val){
+								$cnt = ((int) $explodedDash[1] - 1);
 
-							if(is_array($val)){
-								continue;
+								$finalAssoc[$reflected][$cnt] = $val;
+							} else {
+								$finalAssoc[$reflected] = $val;
 							}
 							unset($finalAssoc[$key]);
-							$reflected = static::reflectFields($key);
-							$reflected = !empty($reflected) ? $reflected : $key;
-							$finalAssoc[$reflected] = $val;
 						}
-
 
 						$this->model->setResponses($finalAssoc);
 					}
@@ -381,7 +381,7 @@ class Client
 
 		// Handle array of strings
 		foreach ($data as $field => $value) {
-			$this->transactionString .= $field . static::TRANS_SEPARATOR . static::wrapper($value);
+			$this->transactionString .= $field . static::TRANS_SEPARATOR . static::wrapper((is_array($value) ? $value[0] : $value));
 		}
 
 		return;
