@@ -381,9 +381,13 @@ class Client
 
 		// Handle array of strings
 		foreach ($data as $field => $value) {
-			$this->transactionString .= $field . static::TRANS_SEPARATOR . static::wrapper((is_array($value) ? $value[0] : $value));
+			if(is_array($value)){
+				$this->transactionString .= $field . static::TRANS_SEPARATOR . static::wrapper($value[key($value)]);
+			}
+			else {
+				$this->transactionString .= $field . static::TRANS_SEPARATOR . static::wrapper($value);
+			}
 		}
-
 		return;
 	}
 
