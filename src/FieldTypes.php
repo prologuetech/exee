@@ -70,6 +70,9 @@ class FieldTypes
 	const CI_MARKS_AND_NUMBERS = 120;
 	const PRINTER_FORMAT_STRING = 188;
 
+    const DUTY_TAX_CODE = 70;
+    const DUTY_TAX_ACCOUNT = 71;
+
 	/**
 	 * 01 - Customer Packaging
 	 * 02 - FedEx Packaging, Express only
