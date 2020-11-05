@@ -277,4 +277,14 @@ class FieldTypes
 	 * Maximum number of copies: 500
 	 */
 	const LTL_FREIGHT_LABEL_NUMBER = 6117;
+
+	/**
+	 * Saturday Delivery flag
+	 */
+	const SATURDAY_DELIVERY = 1266;
+
+	/**
+	 * Total Commodity Customs Value
+	 */
+	const TOTAL_COMMODITY_CUSTOMS_VALUE = 119;
 }
