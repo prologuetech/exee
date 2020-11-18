@@ -283,7 +283,6 @@ class FieldTypes
 	 */
 	const SATURDAY_DELIVERY = 1266;
 	const HOLD_AT_FEDEX_LOCATION = 1200;
-	const SIGNATURE = 2399;
 
 	/**
 	 * Total Commodity Customs Value
