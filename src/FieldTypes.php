@@ -288,4 +288,9 @@ class FieldTypes
 	 * Total Commodity Customs Value
 	 */
 	const TOTAL_COMMODITY_CUSTOMS_VALUE = 119;
+
+	/**
+     * Triggers the transmission of ETD from FSMS to FedEx backend.
+     */
+    public const ETD_TRANSMIT_TO_FEDEX = 2818;
 }
