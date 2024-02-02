@@ -291,6 +291,23 @@ class FieldTypes
 
 	/**
      * Triggers the transmission of ETD from FSMS to FedEx backend.
+     * 2818 is ETD Document Type. 1 is Commercial Invoice.
+     * FedEx Case #19964327
      */
-    public const ETD_TRANSMIT_TO_FEDEX = 2818;
+    public const ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE = 2818;
+
+    /**
+     * Some countries require this when ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE is used.
+     * Value is Y.
+     * Example, required for Guam.
+     * FedEx TR# 2785885
+     */ 
+    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_LETTERHEAD_INDICATOR = 6112;
+    /**
+     * Some countries require this when ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE is used.
+     * Value is Y.
+     * Example, required for China.
+     * FedEx TR# 2785885
+     */
+    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_SIGNATURE_INDICATOR = 6113;
 }
