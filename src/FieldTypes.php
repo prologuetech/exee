@@ -303,6 +303,7 @@ class FieldTypes
      * FedEx TR# 2785885
      */ 
     public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_LETTERHEAD_INDICATOR = 6112;
+	
     /**
      * Some countries require this when ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE is used.
      * Value is Y.
@@ -310,4 +311,14 @@ class FieldTypes
      * FedEx TR# 2785885
      */
     public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_SIGNATURE_INDICATOR = 6113;
+
+	/**
+     * FedEx TR# 2785885
+     */
+    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_LETTERHEAD_IMAGE_PATH = 6114;
+
+    /**
+     * FedEx TR# 2785885
+     */
+    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_SIGNATURE_IMAGE_PATH = 6115;
 }
