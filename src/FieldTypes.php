@@ -290,35 +290,64 @@ class FieldTypes
 	const TOTAL_COMMODITY_CUSTOMS_VALUE = 119;
 
 	/**
-     * Triggers the transmission of ETD from FSMS to FedEx backend.
-     * 2818 is ETD Document Type. 1 is Commercial Invoice.
-     * FedEx Case #19964327
-     */
-    public const ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE = 2818;
-
-    /**
-     * Some countries require this when ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE is used.
-     * Value is Y.
-     * Example, required for Guam.
-     * FedEx TR# 2785885
-     */ 
-    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_LETTERHEAD_INDICATOR = 6112;
-	
-    /**
-     * Some countries require this when ETD_TRANSMIT_TO_FEDEX_ETD_DOC_TYPE is used.
-     * Value is Y.
-     * Example, required for China.
-     * FedEx TR# 2785885
-     */
-    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_SIGNATURE_INDICATOR = 6113;
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * 2818 is ETD Document Type. 1 is Commercial Invoice.
+	 * FedEx Case #19964327
+	 */
+	public const ETD_DOC_TYPE = 2818;
 
 	/**
-     * FedEx TR# 2785885
-     */
-    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_LETTERHEAD_IMAGE_PATH = 6114;
-
-    /**
-     * FedEx TR# 2785885
-     */
-    public const ETD_TRANSMIT_TO_FEDEX_DIGITAL_SIGNATURE_IMAGE_PATH = 6115;
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value is Y.
+	 * Example, required for Guam.
+	 * FedEx TR# 2785885
+	 */	
+	public const DIGITAL_LETTERHEAD_INDICATOR = 6112;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value is Y.
+	 * Example, required for China.
+	 * FedEx TR# 2785885
+	 */
+	public const DIGITAL_SIGNATURE_INDICATOR = 6113;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * FedEx TR# 2785885
+	 */	
+	public const DIGITAL_LETTERHEAD_IMAGE_PATH = 6114;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * FedEx TR# 2785885
+	 */
+	public const DIGITAL_SIGNATURE_IMAGE_PATH = 6115;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value 1 for CI trigger.
+	 * FedEx TR# 2785885
+	 */
+	public const PURPOSE = 2397;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Valid values 100, 200, 300. Use 100 for CI trigger.
+	 * FedEx TR# 2785885
+	 */
+	public const CI_LETTERHEAD_OFFSET = 2398;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value: C:\FedEx\FedEx_ETDReports\CI.txt
+	 * FedEx TR# 2785885
+	 */
+	public const ETD_DOCUMENT_FILE_NAME = 2819;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value: F
+	 * FedEx TR# 2785885
+	 */
+	public const ETD_DOCUMENT_GENERATION = 2821;
+	/**
+	 * Triggers the transmission of ETD from FSMS to FedEx backend.
+	 * Value: C:\FedEx\FedEx_ETDReports
+	 * FedEx TR# 2785885
+	 */
+	public const REPORT_PRINTER_ID = 538;
 }
