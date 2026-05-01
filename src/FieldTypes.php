@@ -350,4 +350,5 @@ class FieldTypes
 	 * FedEx TR# 2785885
 	 */
 	public const REPORT_PRINTER_ID = 538;
+    const AWB_REQUIRED_COPIES = 5752;
 }
